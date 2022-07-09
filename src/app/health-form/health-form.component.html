@@ -1,0 +1,50 @@
+<mat-card class="main-container">
+    <mat-card-title>Chequeo de salud</mat-card-title>
+
+    <p mat-line>Llenando los siguientes datos te brindaremos información de tu estado de salud dependiendo de tu edad, peso y
+        género</p>
+
+    <form [formGroup]="healthForm" (ngSubmit)="onSubmit()">
+
+        <div class="item-container">
+            <label for="age">
+                Edad
+            </label>
+            <input id="age" type="number" formControlName="age">
+        </div>
+
+        <div class="item-container">
+            <label for="height">
+                Altura
+            </label>
+            <input id="height" type="number" formControlName="height">
+        </div>
+
+        <div class="item-container">
+            <label for="weight">
+                Peso
+            </label>
+            <input id="weight" type="number" formControlName="weight">
+        </div>
+
+        <div class="item-container">
+            <p>Genero</p>
+
+            <label for="gender">
+                Hombre
+            </label>
+            <input id="gender" type="radio" value="m" formControlName="gender">
+
+            <label for="gender">
+                Mujer
+            </label>
+            <input id="gender" type="radio" value="f" formControlName="gender">
+        </div>
+
+        <div class="submit">
+            <button class="button" type="submit">Enviar</button>
+        </div>
+
+    </form>
+
+</mat-card>

@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Diagnóstico</h1>
+<div mat-dialog-content>
+  <ul mat-nav-list>
+    <li mat-list-item>Indice de grasa corporal: {{data.bfi}}</li>
+    <li>Indice de masa corporal: {{data.bmi}}</li>
+    <li>Peso deseable: {{data.healthyWeight}}</li>
+    <li>Estado corporal: {{data.status}}</li>
+  </ul>
+  
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="onNoClick()">Close</button>
+</div>
