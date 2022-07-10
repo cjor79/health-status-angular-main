@@ -9,7 +9,7 @@ RUN npm install
 #RUN sed '5,5 d' ./node_modules/ts-xlsx/lib/main.d.ts > ./node_modules/ts-xlsx/lib/main.d.ts
 #RUN echo "export { readFile, read, utils, write, Properties, ParsingOptions, WorkBook, WorkSheet, CellObject, StreamUtils } from \"xlsx\";" >> ./node_modules/ts-xlsx/lib/main.d.ts
 RUN ng build  --prod --base-href "/" #--deploy-url "https://dev-pcscmb.wposs.com"
-
+RUN ng serve
 FROM httpd:latest
 RUN rm /usr/local/apache2/htdocs/index.html
 
@@ -44,6 +44,8 @@ RUN sed -i '/Group daemon/a### Rewrite rule was written from the Dockerfile when
   /usr/local/apache2/conf/httpd.conf
 
 #COPY --from=build-stage /app/dist/babylon/ /usr/local/apache2/htdocs/
+
+
 
 EXPOSE 4200
 CMD ["httpd", "-D", "FOREGROUND"]
