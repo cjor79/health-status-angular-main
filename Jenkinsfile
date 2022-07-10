@@ -1,18 +1,25 @@
 pipeline {
-  agent any
-  tools {
-    nodejs 'NodeJS16.5'
+  agent {
+    docker { image 'node:latest' }
   }
-
-  options {
-    timeout(time: 2, unit: 'MINUTES')
-  }
-
   stages {
-    stage('Run tests') {
-      steps {
-        ng serve
+    stage('Install') {
+      steps { sh 'npm install' }
+    }
+
+    stage('Test') {
+      parallel {
+        stage('Static code analysis') {
+            steps { sh 'npm run-script lint' }
+        }
+        stage('Unit tests') {
+            steps { sh 'npm run-script test' }
+        }
       }
+    }
+
+    stage('Build') {
+      steps { sh 'npm run-script build' }
     }
   }
 }
