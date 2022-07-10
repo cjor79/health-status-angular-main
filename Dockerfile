@@ -1,53 +1,24 @@
-FROM node:14.15.3-alpine as build-stage
-RUN npm install -g @angular/cli@9.1.4
-# RUN npm install -g node-sass
+# base image
+FROM node:12.2.0
 
+# install chrome for protractor tests
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+RUN apt-get update && apt-get install -yq google-chrome-stable
+
+# set working directory
 WORKDIR /app
-COPY ./ /app/
+
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
+
+# install and cache app dependencies
+COPY package.json /app/package.json
 RUN npm install
+RUN npm install -g @angular/cli@7.3.9
+
+# add app
+COPY . /app
+
 # start app
 CMD ng serve --host 0.0.0.0
-# RUN node-sass -w scss-files -o css-files
-#RUN sed '5,5 d' ./node_modules/ts-xlsx/lib/main.d.ts > ./node_modules/ts-xlsx/lib/main.d.ts
-#RUN echo "export { readFile, read, utils, write, Properties, ParsingOptions, WorkBook, WorkSheet, CellObject, StreamUtils } from \"xlsx\";" >> ./node_modules/ts-xlsx/lib/main.d.ts
-RUN ng build  --prod --base-href "/" #--deploy-url "https://dev-pcscmb.wposs.com"
-
-FROM httpd:latest
-RUN rm /usr/local/apache2/htdocs/index.html
-
-RUN sed -i \
-  's/#LoadModule rewrite_module modules\/mod_rewrite.so/LoadModule rewrite_module modules\/mod_rewrite.so/g' \
-  /usr/local/apache2/conf/httpd.conf
-
-# Append to the published directory, that we want to rewrite any request that is not an actual file
-# to the index.html page.
-RUN sed -i '/<Directory "\/usr\/local\/apache2\/htdocs">/a### Rewrite rule was written from the Dockerfile when building the image ###\n\
-  DirectoryIndex index.html\n\
-  RewriteEngine on\n\
-  RewriteCond %{REQUEST_FILENAME} -s [OR]\n\
-  RewriteCond %{REQUEST_FILENAME} -d\n\
-  RewriteRule ^.*$ - [NC,L]\n\
-  RewriteRule ^(.*) index.html [NC,L]\n' \
-  /usr/local/apache2/conf/httpd.conf
-
-# Comment out the default config that handles requests to /.htaccess and /.ht* with a special error message,
-# Angular will handle all routing
-RUN sed -i '/<Files "\.ht\*">/,/<\/Files>/c# This was commented out from the Dockerfile\n# <Files ".ht*">\n#     Require all denied\n# <\/Files>' \
-  /usr/local/apache2/conf/httpd.conf
-
-RUN sed -i '288s/.*/    Options -Indexes\n/' /usr/local/apache2/conf/httpd.conf
-
-RUN sed -i '/Group daemon/a### Rewrite rule was written from the Dockerfile when building the image ###\n\
-  <IfModule mod_headers.c>\n\
-  Header set X-XSS-Protection "1; mode=block"\n\
-  Header always append X-Frame-Options SAMEORIGIN\n\
-  Header set X-Content-Type-Options nosniff\n\
-  </IfModule>\n' \
-  /usr/local/apache2/conf/httpd.conf
-
-#COPY --from=build-stage /app/dist/babylon/ /usr/local/apache2/htdocs/
-
-
-
-EXPOSE 4200
-CMD ["httpd", "-D", "FOREGROUND"]

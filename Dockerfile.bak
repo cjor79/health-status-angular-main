@@ -5,6 +5,8 @@ RUN npm install -g @angular/cli@9.1.4
 WORKDIR /app
 COPY ./ /app/
 RUN npm install
+# start app
+CMD ng serve --host 0.0.0.0
 # RUN node-sass -w scss-files -o css-files
 #RUN sed '5,5 d' ./node_modules/ts-xlsx/lib/main.d.ts > ./node_modules/ts-xlsx/lib/main.d.ts
 #RUN echo "export { readFile, read, utils, write, Properties, ParsingOptions, WorkBook, WorkSheet, CellObject, StreamUtils } from \"xlsx\";" >> ./node_modules/ts-xlsx/lib/main.d.ts
@@ -49,4 +51,3 @@ RUN sed -i '/Group daemon/a### Rewrite rule was written from the Dockerfile when
 
 EXPOSE 4200
 CMD ["httpd", "-D", "FOREGROUND"]
-CMD ["ng","serve","--host", "0.0.0.0"]
