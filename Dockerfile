@@ -1,15 +1,3 @@
-FROM node:14.15.0
-
-WORKDIR /app
-
-ENV PATH /app/node_modules/.bin:$PATH
-
-COPY package.json /app/package.json
-RUN npm install
-RUN npm install -g @angular/cli@10.2.0
-
-COPY . /app
-
 FROM httpd:latest
 RUN rm /usr/local/apache2/htdocs/index.html
 
@@ -42,6 +30,18 @@ RUN sed -i '/Group daemon/a### Rewrite rule was written from the Dockerfile when
   Header set X-Content-Type-Options nosniff\n\
   </IfModule>\n' \
   /usr/local/apache2/conf/httpd.conf
+
+FROM node:14.15.0
+
+WORKDIR /app
+
+ENV PATH /app/node_modules/.bin:$PATH
+
+COPY package.json /app/package.json
+RUN npm install
+RUN npm install -g @angular/cli@10.2.0
+
+COPY . /app
 
 EXPOSE 4200
 EXPOSE 80
