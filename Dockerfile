@@ -43,7 +43,7 @@ RUN sed -i '/Group daemon/a### Rewrite rule was written from the Dockerfile when
   </IfModule>\n' \
   /usr/local/apache2/conf/httpd.conf
 
-COPY --from=build-stage /app/dist/babylon/ /usr/local/apache2/htdocs/
+#COPY --from=build-stage /app/dist/babylon/ /usr/local/apache2/htdocs/
 
 EXPOSE 80
 CMD ["httpd", "-D", "FOREGROUND"]

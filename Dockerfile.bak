@@ -8,7 +8,7 @@ RUN npm install
 # RUN node-sass -w scss-files -o css-files
 #RUN sed '5,5 d' ./node_modules/ts-xlsx/lib/main.d.ts > ./node_modules/ts-xlsx/lib/main.d.ts
 #RUN echo "export { readFile, read, utils, write, Properties, ParsingOptions, WorkBook, WorkSheet, CellObject, StreamUtils } from \"xlsx\";" >> ./node_modules/ts-xlsx/lib/main.d.ts
-RUN ng build  --prod --base-href "/" #--deploy-url "https://redenlacecnf.redenlace.com.bo/"
+RUN ng build  --prod --base-href "/" #--deploy-url "https://testcmb.wposs.com/"
 
 FROM httpd:latest
 RUN rm /usr/local/apache2/htdocs/index.html
