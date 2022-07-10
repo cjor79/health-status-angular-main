@@ -19,8 +19,8 @@ RUN npm install -g @angular/cli@7.3.9
 # add app
 COPY . /app
 
-# generate build
-RUN ng build --output-path=dist
+# arrancar
+ng serve -o --port 4200
 
 ############
 ### prod ###
