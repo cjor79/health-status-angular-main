@@ -69,14 +69,15 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "angular-health:build:production"
+              "browserTarget": "angular-health:build:production",
+              "disableHostCheck": true
             },
             "development": {
-              "browserTarget": "angular-health:build:development"
+              "browserTarget": "angular-health:build:development",
+              "disableHostCheck": true
             }
           },
-          "defaultConfiguration": "development",
-          "disableHostCheck": true
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
