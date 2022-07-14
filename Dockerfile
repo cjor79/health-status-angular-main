@@ -1,22 +1,15 @@
-# pull the Node.js Docker image
-FROM node:alpine
+FROM node:14.15.0
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+WORKDIR /app
 
-# create the directory inside the container
-WORKDIR /usr/src/app
+ENV PATH /app/node_modules/.bin:$PATH
 
-# copy the package.json files from local machine to the workdir in container
-COPY package*.json ./
-
-# run npm install in our local machine
+COPY package.json /app/package.json
 RUN npm install
+RUN npm install -g @angular/cli@10.2.0
 
-# copy the generated modules and all other files to the container
-COPY . .
+COPY . /app
 
-# our app is running on port 5000 within the container, so need to expose it
-EXPOSE 4200 80 443
-
-# the command that starts our app
-CMD ["node", "index.js"]
+EXPOSE 4200
+CMD npm start
+CMD ["ng","serve","--port","4200"]
