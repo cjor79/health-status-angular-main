@@ -21,7 +21,7 @@ spec:
         app: cmb-frontn
     spec:
       nodeSelector:
-          platlabel: <selector>
+          plataform: <selector>
       containers:
         - name: cmb-frontn
           image: <image>

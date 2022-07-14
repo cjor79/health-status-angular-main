@@ -30,9 +30,6 @@ export class HealthService {
   };
 
   getHealthStatus(user: User): Observable<HealthStatus> {
-    console.log("calling health service with: ", user);
-    console.log("environment.apiUrl: ", environment.apiUrl);
-    console.log("this.httpOptions: ", this.httpOptions);
     return this.http.post<HealthStatus>(environment.apiUrl, user, this.httpOptions)
   }
 }
