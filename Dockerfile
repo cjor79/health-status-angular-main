@@ -14,7 +14,6 @@ COPY . /app
 FROM nginx:1.19.2
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=build-atc /app/dist/babylon /usr/share/nginx/html
 
 EXPOSE 4200
 EXPOSE 80 443
