@@ -13,9 +13,6 @@ COPY . /app
 
 FROM nginx:1.19.2
 
-COPY ssl/STAR_wposs_com.crt /etc/ssl/STAR_wposs_com.crt
-COPY ssl/wposs_com.key /etc/ssl/wposs_com.key
-
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build-atc /app/dist/babylon /usr/share/nginx/html
 
