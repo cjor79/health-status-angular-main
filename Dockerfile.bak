@@ -1,3 +1,13 @@
+## Segunda etapa
+
+FROM nginx:1.19.2
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80 443
+CMD ["nginx", "-g", "daemon off;"]
+
+
 FROM node:14.15.0
 
 WORKDIR /app
@@ -13,11 +23,3 @@ COPY . /app
 EXPOSE 4200
 CMD npm start
 CMD ["ng","serve","--host", "0.0.0.0","--port","4200"]
-## Segunda etapa
-
-FROM nginx:1.19.2
-
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-EXPOSE 80 443
-CMD ["nginx", "-g", "daemon off;"]
