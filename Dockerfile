@@ -1,13 +1,13 @@
-## Segunda etapa
-
-FROM nginx:latest
-
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-EXPOSE 80 443
-CMD ["nginx", "-g", "daemon off;"]
-
 FROM node:14.15.0
+
+#actualizamos paquetes
+RUN apt upgrade
+
+#install nginx
+RUN apt install -y nginx
+
+#lanzar nginx
+RUN -d --name nginx-server -p 4200:31823 nginx
 
 # Creamos una carpeta llamada APP
 RUN mkdir -p /app
