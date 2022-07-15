@@ -11,6 +11,7 @@ COPY package.json /app
 
 # Instalamos todas las dependencias
 RUN npm install
+RUN npm install -g @angular/cli@10.2.0
 RUN npm uninstall ng2-pdf-viewer
 RUN npm install ng2-pdf-viewer@5.2.1
 RUN npm i @types/node@14.14.31 -D
@@ -20,7 +21,7 @@ RUN npm rebuild node-sass/ts-xlsx/lib/main.d.ts
 COPY . /app
 
 # Compilamos el proyecto
-RUN node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng build  --prod --base-href "/" #--deploy-url "https://dev-psecuritycmb.wposs.com/tests/"
+RUN node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng build  --prod --base-href "/" #--deploy-url "https://dev-psecuritycmb.wposs.com/"
 
 ## Segunda etapa
 
