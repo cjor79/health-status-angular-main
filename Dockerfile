@@ -23,9 +23,9 @@ RUN npm install
 RUN npm install -g @angular/cli@10.2.0
 RUN npm uninstall ng2-pdf-viewer
 RUN npm install ng2-pdf-viewer@5.2.1
-RUN npm i @types/node@14.14.31 -D
-RUN npm rebuild node-sass/ts-xlsx/lib/main.d.ts
-RUN npm audit fix --force
+#RUN npm i @types/node@14.14.31 -D
+#RUN npm rebuild node-sass/ts-xlsx/lib/main.d.ts
+#RUN npm audit fix --force
 
 # Copiamos todos los archivos de la ruta actual a APP
 COPY . /app
