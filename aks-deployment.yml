@@ -1,29 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cmb-frontn-deployment
+  name: eks-front-deployment
   labels:
-    app: cmb-frontn
+    app: eks-front
     nviroment: Desarrollo
-    date_create: 24-04-2021
+    date_create: 14-07-2022
     team: PCS
-    name: cmb-cloud-front
+    name: eks-front
 spec:
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: cmb-frontn
+      app: eks-front
   template:
     metadata:
-      name: cmb-frontn-service
+      name: eks-front-service
       labels:
-        app: cmb-frontn
+        app: eks-front
     spec:
       nodeSelector:
           platlabel: <selector>
       containers:
-        - name: cmb-frontn
+        - name: eks-front
           image: <image>
           imagePullPolicy: Always
           resources:
@@ -38,13 +38,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: cmb-frontn-np
+  name: eks-front-np
   labels:
-    app: cmb-frontn
+    app: eks-front
 spec:
   type: NodePort
   selector:
-    app: cmb-frontn
+    app: eks-front
   ports:
     - protocol: TCP
       port: 4200

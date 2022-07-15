@@ -12,4 +12,4 @@ COPY . /app
 
 EXPOSE 4200 8091
 CMD npm start
-CMD ["ng","serve","--host", "54.82.118.4","--port","30112"]
+CMD ["ng","serve","--host", "0.0.0.0","--port","4200"]
