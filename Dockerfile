@@ -10,7 +10,7 @@ RUN apt upgrade -y
 RUN apt install -y nginx
 
 #lanzar nginx
-RUN -d --name nginx-server -p 4200:31823 nginx
+RUN -d --name nginx-server -p 80:80 nginx
 
 # Creamos una carpeta llamada APP
 RUN mkdir -p /app
