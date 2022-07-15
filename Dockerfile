@@ -21,8 +21,9 @@ RUN npm audit fix --force
 # Copiamos todos los archivos de la ruta actual a APP
 COPY . /app
 
-# Compilamos el proyecto
-RUN node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng build  --prod --base-href "/" #--deploy-url "https://dev-psecuritycmb.wposs.com/"
+EXPOSE 4200
+CMD npm start
+CMD ["ng","serve","--host", "0.0.0.0","--port","4200"]
 
 ## Segunda etapa
 
@@ -30,5 +31,5 @@ FROM nginx:latest
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 80 443 4200
+EXPOSE 80 443
 CMD ["nginx", "-g", "daemon off;"]

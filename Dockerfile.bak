@@ -1,4 +1,4 @@
-FROM node:14-alpine as build-atc
+FROM node:14.15.0
 
 # Creamos una carpeta llamada APP
 RUN mkdir -p /app
