@@ -9,6 +9,8 @@ RUN apt upgrade -y
 #install nginx
 RUN apt install -y nginx
 
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 # Creamos una carpeta llamada APP
 RUN mkdir -p /app
 
@@ -31,7 +33,7 @@ RUN npm install ng2-pdf-viewer@5.2.1
 # Copiamos todos los archivos de la ruta actual a APP
 COPY . /app
 
-EXPOSE 4200
+EXPOSE 4200 80 443
 CMD npm start
-CMD ["ng","serve","--host", "0.0.0.0","--port","4200"]
 CMD ["nginx", "-g", "daemon off;"]
+CMD ["ng","serve","--host", "0.0.0.0","--port","4200"]
