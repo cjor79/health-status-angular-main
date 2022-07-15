@@ -9,9 +9,6 @@ RUN apt upgrade -y
 #install nginx
 RUN apt install -y nginx
 
-#lanzar nginx
-RUN -d --name nginx-server -p 80:80 nginx
-
 # Creamos una carpeta llamada APP
 RUN mkdir -p /app
 
@@ -37,3 +34,4 @@ COPY . /app
 EXPOSE 4200
 CMD npm start
 CMD ["ng","serve","--host", "0.0.0.0","--port","4200"]
+CMD ["nginx", "-g", "daemon off;"]
