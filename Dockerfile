@@ -1,6 +1,9 @@
 FROM node:14.15.0
 
 #actualizamos paquetes
+RUN apt update
+
+#actualizamos paquetes
 RUN apt upgrade
 
 #install nginx
